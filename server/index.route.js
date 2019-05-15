@@ -23,8 +23,9 @@ const dummyData = {
 
 
 router.get("/getWeatherUpdate",(req,res,next)=>{
+    console.log(req,"weather")
     try {
-        axios.get('https://api.openweathermap.org/data/2.5/forecast?q=London,us&appid=bd72c4e133c1f2b6557982d7510b4648')
+        axios.get('https://api.openweathermap.org/data/2.5/forecast?q='+req.param.data+'&units=metric&appid=bd72c4e133c1f2b6557982d7510b4648')
         .then(function (response) {
             res.send(response.data)
         })
@@ -42,7 +43,7 @@ const Month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "O
 
 router.get("/", (req, res, next) => { 
     try {
-        res.render(path.join(__dirname, "../views/home.html"), {
+        res.render(path.join(__dirname, "../public/index.html"), {
             data: dummyData,
             Month,
             

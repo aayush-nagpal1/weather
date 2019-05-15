@@ -2,12 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const ejs = require("ejs");
 const path = require("path");
-
-const index_router = require("./routes/index.route");
-
-const {
-    port
-} = require("./config");
+const index_router = require("./server/index.route");
+const {port} = require("./config");
 
 let app = express();
 app.engine("html", ejs.renderFile);

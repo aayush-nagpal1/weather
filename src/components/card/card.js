@@ -1,14 +1,15 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import SmallCard from '../smallCard/index'
+import Services from '../../services'
 import './card.css'
 const MAX_SMALL_CARDS = 4;
 
-// useEffect(() =>{
-
-// })
-
-
 function Card(props) {
+    useEffect(() =>{
+        Services.getWeatherDetails("Bangalore",function(response){
+            console.log(response);
+        })
+    })
     return (
         <div>
             <div className="container my-5">
