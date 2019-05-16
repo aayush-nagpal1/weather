@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const path = require("path");
+var cors = require('cors')
 const dummyData = {
     date: new Date(),
     time: "11:50 PM",
@@ -21,32 +22,34 @@ const dummyData = {
     }],
 };
 
-
-router.get("/getWeatherUpdate",(req,res,next)=>{
-    console.log(req,"weather")
+var corsOptions = {
+    origin: 'http://localhost:4001',
+    optionsSuccessStatus: 200
+}
+router.get("/getWeatherUpdate", cors(corsOptions), (req, res, next) => {
+    var token = JSON.parse(req.headers['file-access-id']);    
     try {
-        axios.get('https://api.openweathermap.org/data/2.5/forecast?q='+req.param.data+'&units=metric&appid=bd72c4e133c1f2b6557982d7510b4648')
-        .then(function (response) {
-            res.send(response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-        });    
+        let url = "https://api.openweathermap.org/data/2.5/forecast?q=" + token.city + "&units=metric&appid=bd72c4e133c1f2b6557982d7510b4648"
+        axios.get(url)
+            .then(function (response) {
+                console.log(response.data);
+                res.end(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // console.log(error);
+            });
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 
 })
 
-
-const Month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
-
-router.get("/", (req, res, next) => { 
+router.get("/", (req, res, next) => {
     try {
-        res.render(path.join(__dirname, "../public/index.html"), {
+        res.render(path.join(__dirname, "../dist/bundle.js"), {
             data: dummyData,
             Month,
-            
+
 
         });
     } catch (error) {

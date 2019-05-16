@@ -1,3 +1,7 @@
 .main-card-width{
     width:100%;
 }
+.main-card-temperature{
+    font-size: 90px;
+    margin-bottom: 0;
+}

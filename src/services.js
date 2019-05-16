@@ -1,3 +1,4 @@
+
 module.exports = {
     getWeatherDetails: function(queryData, successCb, errorCb) {
       console.log(queryData)
@@ -5,7 +6,7 @@ module.exports = {
         type: "GET",
         url: "http://localhost:4000/getWeatherUpdate",
         datatype: "json",
-        data: queryData,
+        headers: { "x-access-token": queryData },
         success: successCb,
         error: errorCb
       });
