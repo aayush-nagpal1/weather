@@ -1,8 +1,7 @@
 # Weather Application
 
-This application gives a 5 day weather summary of a city. To find the weather
-of a city, enter the city name in the search box. The 5 day weather update
-will be shown on the screen below the search box.
+This application gives a 5 day weather summary of a city. The 5 day weather update
+will be shown on the screen.
 
 ## To run the application
    1. Clone the repository.
