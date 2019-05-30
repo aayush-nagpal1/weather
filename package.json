@@ -5,7 +5,25 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"webpack-dev-server --mode development\" \"node server.js\"",
-    "build": "webpack  --content-base dist/ --mode development"
+    "build": "webpack  --content-base dist/ --mode development",
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "transform": {
+      "\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
   },
   "author": "Aayush Nagpal",
   "license": "ISC",
@@ -14,8 +32,15 @@
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "^7.0.1",
     "style-loader": "^0.23.0",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.1",
@@ -26,12 +51,15 @@
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
+    "enzyme": "^3.9.0",
     "express": "^4.16.4",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-hot-loader": "^4.8.4"
+    "react-hot-loader": "^4.8.4",
+    "react-router": "^5.0.0"
   }
 }

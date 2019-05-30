@@ -1,28 +1,17 @@
 import React , { useState, useEffect } from 'react';
 import SmallCard from '../smallCard/index'
 import moment from 'moment';
-import './card.css'
-const MAX_SMALL_CARDS = 4;
-const Month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+import {mainCardData, smallCardData, getIcon} from '../../utils/utils'
+import './card.css';
+import config from "../../../config"
+import fetch from 'node-fetch'
 
-const mainCardData = (weatherData)=> {
-	let res =[]
-	//console.log(moment(new Date).format('YYYY-MM-DD HH:mm:ss'),weatherData[0].dt_txt)
-	const filterByDate = weatherData.filter(data => moment(new Date).format('YYYY-MM-DD')=== (data.dt_txt.split(' ')[0]))
-	console.log(filterByDate[0]);
-	res.push(filterByDate[0])
-	return(res);
-}
-
-const Card = props=> {
-	// let [city, setCity] = useState("Bangalore");
-	// useEffect(()=>{
-	// 	setCity("Bangalore");
-	// })
-	let [mainCard,setMainCard]= useState([]);
+const Card = (props) => {
+	let [mainCard,setMainCard] = useState([]);
+	let [smallCard,setSmallCard] = useState([]);
     useEffect(() =>{
         let queryData = {"city":"Bangalore"}
-        fetch("http://localhost:4000/getWeatherUpdate",{
+        fetch(config.url,{
             method:"GET",
             mode: 'cors', 
             headers: {
@@ -31,14 +20,13 @@ const Card = props=> {
             },
         })
         .then(response => {
-			if (response.ok) {
 			  response.json().then(json => {
-				console.log(json);
 				setMainCard(mainCardData(json.list))
+				setSmallCard(smallCardData(json.list))
 			  });
-			}
 		  });
 	},[])
+
 	if(mainCard.length>0){
 		return (
 			<div>
@@ -51,14 +39,15 @@ const Card = props=> {
 									<div className="contaner">
 										<div className="row">
 											<div className="col-md-4">
-												<img src="https://image.flaticon.com/icons/svg/979/979585.svg" width="150" alt=""/>
+												<img src={getIcon(mainCard[0].weather[0].description)} width="150" alt={mainCard[0].weather.description}/>
 											</div>
 											<div className="col-md-4"></div>
 											<div className="col-md-4">
 												<center className="py-5">
 													<h4>{mainCard[0].dt_txt.split(' ')[0]}
 													</h4>
-													<h2>{moment(new Date).format('HH:mm')}</h2>
+													<h2>{moment(new Date).format('HH:mm')}
+													</h2>
 												</center>
 											</div>
 										</div>
@@ -73,7 +62,7 @@ const Card = props=> {
 											<div className="col-md-3"></div>
 										</div>
 										<div className="row my-5">
-											<SmallCard />
+											<SmallCard data={smallCard}/>
 										</div>
 									</div>
 								</div>

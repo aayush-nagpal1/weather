@@ -1,5 +1,6 @@
-.small-card{
-    height:300px
+.small-card {
+    height:250px;
+    background-color: #5a9cff;
 }
 
 .temperature {
