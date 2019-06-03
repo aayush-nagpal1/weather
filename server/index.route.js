@@ -32,7 +32,6 @@ router.get("/getWeatherUpdate", cors(corsOptions), (req, res, next) => {
         let url = "https://api.openweathermap.org/data/2.5/forecast?q=" + token.city + "&units=metric&appid=bd72c4e133c1f2b6557982d7510b4648"
         axios.get(url)
             .then(function (response) {
-                console.log(response.data);
                 res.end(JSON.stringify(response.data))
             })
             .catch(function (error) {
